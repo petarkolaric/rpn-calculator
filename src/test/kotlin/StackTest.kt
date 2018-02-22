@@ -31,4 +31,22 @@ class StackTest {
         assertEquals(BigDecimal("10"), poppedItem)
         assertEquals("", stack.toString())
     }
+
+    @Test
+    fun `should pop off the top of the stack`() {
+        val stack = Stack()
+        stack.push(BigDecimal("10"))
+        stack.push(BigDecimal("20"))
+        stack.push(BigDecimal("30"))
+        val poppedItem = stack.pop()
+
+        assertEquals(BigDecimal("30"), poppedItem)
+        assertEquals("10 20", stack.toString())
+    }
+
+    @Test(expected = IllegalStateException::class)
+    fun `should throw exception when no numbers to pop`() {
+        val stack = Stack()
+        stack.pop()
+    }
 }

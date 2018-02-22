@@ -1,6 +1,6 @@
 import java.math.BigDecimal
 
-class Stack() {
+class Stack {
 
     private val stackContents = mutableListOf<BigDecimal>()
 
@@ -9,7 +9,10 @@ class Stack() {
     }
 
     fun pop(): BigDecimal {
-        return stackContents.removeAt(0)
+        if (stackContents.isEmpty()) {
+            throw IllegalStateException("No items in stack to pop")
+        }
+        return stackContents.removeAt(stackContents.lastIndex)
     }
 
     override fun toString(): String {
