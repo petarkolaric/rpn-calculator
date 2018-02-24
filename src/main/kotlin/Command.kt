@@ -68,9 +68,9 @@ class ClearCommand: Command {
     }
 }
 
-class PushNewNumberCommand(private val newNumber: String): Command {
+class PushNewNumberCommand(private val newNumber: BigDecimal): Command {
     override fun execute(stack: Stack) {
         stack.saveState()
-        stack.push(BigDecimal(newNumber))
+        stack.push(newNumber)
     }
 }
