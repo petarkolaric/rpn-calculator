@@ -61,8 +61,9 @@ class UndoCommand: Command {
     }
 }
 
-//class ClearCommand: Command {
-//    override fun execute(stack: Stack): Stack {
-//        return Stack()
-//    }
-//}
+class ClearCommand: Command {
+    override fun execute(stack: Stack) {
+        stack.saveState()
+        stack.clear()
+    }
+}

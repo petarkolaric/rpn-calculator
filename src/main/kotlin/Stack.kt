@@ -16,6 +16,10 @@ class Stack {
         return stackContents.removeAt(stackContents.lastIndex)
     }
 
+    fun clear() {
+        stackContents = mutableListOf()
+    }
+
     fun revertState() {
         if (previousStackContents.isEmpty()) {
             throw IllegalStateException("No operations to undo")

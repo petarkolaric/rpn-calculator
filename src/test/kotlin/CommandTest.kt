@@ -155,4 +155,27 @@ class CommandTest {
 
         assertEquals("50 100 200 300", stack.toString())
     }
+
+    @Test
+    fun `clear command should clear stack`() {
+        val stack = Stack()
+        stack.push(BigDecimal("10"))
+        stack.push(BigDecimal("20"))
+
+        ClearCommand().execute(stack)
+
+        assertEquals("", stack.toString())
+    }
+
+    @Test
+    fun `should be able to undo clear command`() {
+        val stack = Stack()
+        stack.push(BigDecimal("10"))
+        stack.push(BigDecimal("20"))
+
+        ClearCommand().execute(stack)
+        UndoCommand().execute(stack)
+
+        assertEquals("10 20", stack.toString())
+    }
 }

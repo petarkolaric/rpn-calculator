@@ -116,4 +116,15 @@ class StackTest {
 
         assertEquals("10 20", stack.toString())
     }
+
+    @Test
+    fun `should be able to clear stack`() {
+        val stack = Stack()
+        stack.push(BigDecimal("10"))
+        stack.push(BigDecimal("20"))
+
+        stack.clear()
+
+        assertEquals("", stack.toString())
+    }
 }
