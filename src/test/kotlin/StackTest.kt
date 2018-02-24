@@ -86,18 +86,34 @@ class StackTest {
         assertEquals("10 20 30", stack.toString())
     }
 
-    @Test(expected = IllegalStateException::class)
-    fun `should throw exception if trying to undo more operations than have been done`() {
+    @Test
+    fun `should be able to go back to saved state`() {
         val stack = Stack()
         stack.push(BigDecimal("10"))
         stack.push(BigDecimal("20"))
-        stack.pop()
-        stack.pop()
+        stack.saveState()
+        stack.push(BigDecimal("50"))
+        stack.push(BigDecimal("60"))
+        stack.push(BigDecimal("70"))
+
+        stack.undoLastOperation()
+
+        assertEquals("10 20", stack.toString())
+    }
+
+    @Test(expected = IllegalStateException::class)
+    fun `should throw exception when no state to revert to`() {
+        val stack = Stack()
+        stack.push(BigDecimal("10"))
+        stack.push(BigDecimal("20"))
+        stack.saveState()
+        stack.push(BigDecimal("50"))
+        stack.push(BigDecimal("60"))
+        stack.push(BigDecimal("70"))
 
         stack.undoLastOperation()
         stack.undoLastOperation()
-        stack.undoLastOperation()
-        stack.undoLastOperation()
-        stack.undoLastOperation()
+
+        assertEquals("10 20", stack.toString())
     }
 }

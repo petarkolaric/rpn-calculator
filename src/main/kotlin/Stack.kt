@@ -6,24 +6,14 @@ class Stack {
     private val previousStackContents = mutableListOf<MutableList<BigDecimal>>()
 
     fun push(number: BigDecimal) {
-        addCurrentStackContentsToPrevious()
         stackContents.add(number)
     }
 
     fun pop(): BigDecimal {
-        addCurrentStackContentsToPrevious()
         if (stackContents.isEmpty()) {
             throw IllegalStateException("No items in stack to pop")
         }
         return stackContents.removeAt(stackContents.lastIndex)
-    }
-
-    override fun toString(): String {
-        var outputString = ""
-        stackContents.forEach {
-            outputString += it.toString() + " "
-        }
-        return outputString.trim()
     }
 
     fun undoLastOperation() {
@@ -33,7 +23,15 @@ class Stack {
         stackContents = previousStackContents.removeAt(previousStackContents.lastIndex)
     }
 
-    private fun addCurrentStackContentsToPrevious() {
+    fun saveState() {
         previousStackContents.add(stackContents.toMutableList())
+    }
+
+    override fun toString(): String {
+        var outputString = ""
+        stackContents.forEach {
+            outputString += it.toString() + " "
+        }
+        return outputString.trim()
     }
 }
