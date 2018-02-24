@@ -1,4 +1,5 @@
 import java.math.BigDecimal
+import java.text.DecimalFormat
 
 class Stack {
 
@@ -33,8 +34,12 @@ class Stack {
 
     override fun toString(): String {
         var outputString = ""
+        val decimalFormat = DecimalFormat()
+        decimalFormat.maximumFractionDigits = 10
+        decimalFormat.minimumFractionDigits = 0
+        decimalFormat.isGroupingUsed = false
         stackContents.forEach {
-            outputString += it.toString() + " "
+            outputString += decimalFormat.format(it) + " "
         }
         return outputString.trim()
     }

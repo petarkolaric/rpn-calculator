@@ -206,8 +206,11 @@ class CommandTest {
         stack.push(BigDecimal("13"))
 
         DivideCommand().execute(stack)
+        val result = stack.pop()
 
-        assertEquals("0.769230769230770", stack.toString())
+        println(result.toString())
+
+        assertEquals(BigDecimal("0.769230769230770"), result)
     }
 
     @Test
@@ -217,8 +220,9 @@ class CommandTest {
         stack.push(BigDecimal("1323832813"))
 
         SquareRootCommand().execute(stack)
+        val result = stack.pop()
 
-        assertEquals("36384.513367640356591", stack.toString())
+        assertEquals(BigDecimal("36384.513367640356591"), result)
     }
 
     @Test
@@ -227,6 +231,17 @@ class CommandTest {
 
         PushNewNumberCommand(BigDecimal("12345.12345678901234567890")).execute(stack)
 
-        assertEquals("12345.123456789012346", stack.toString())
+        val savedNumber = stack.pop()
+
+        assertEquals(BigDecimal("12345.123456789012346"), savedNumber)
+    }
+
+    @Test
+    fun `should only print numbers to 10 places of precision`() {
+        val stack = Stack()
+
+        PushNewNumberCommand(BigDecimal("12345.12345678911234567890")).execute(stack)
+
+        assertEquals("12345.1234567891", stack.toString())
     }
 }

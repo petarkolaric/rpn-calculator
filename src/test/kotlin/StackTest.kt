@@ -99,8 +99,11 @@ class StackTest {
         assertEquals("", stack.toString())
     }
 
-//    @Test
-//    fun `to string should not return trailing zeros after decimal place`() {
-//
-//    }
+    @Test
+    fun `to string should not return trailing zeros after decimal place`() {
+        val stack = Stack()
+        stack.push(BigDecimal("10").setScale(15))
+
+        assertEquals("10", stack.toString())
+    }
 }
