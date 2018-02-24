@@ -2,13 +2,16 @@ import java.math.BigDecimal
 
 class Stack {
 
-    private val stackContents = mutableListOf<BigDecimal>()
+    private var stackContents = mutableListOf<BigDecimal>()
+    private val previousStackContents = mutableListOf<MutableList<BigDecimal>>()
 
     fun push(number: BigDecimal) {
+        addCurrentStackContentsToPrevious()
         stackContents.add(number)
     }
 
     fun pop(): BigDecimal {
+        addCurrentStackContentsToPrevious()
         if (stackContents.isEmpty()) {
             throw IllegalStateException("No items in stack to pop")
         }
@@ -23,4 +26,14 @@ class Stack {
         return outputString.trim()
     }
 
+    fun undoLastOperation() {
+        if (previousStackContents.isEmpty()) {
+            throw IllegalStateException("No operations to undo")
+        }
+        stackContents = previousStackContents.removeAt(previousStackContents.lastIndex)
+    }
+
+    private fun addCurrentStackContentsToPrevious() {
+        previousStackContents.add(stackContents.toMutableList())
+    }
 }

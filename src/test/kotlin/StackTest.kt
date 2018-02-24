@@ -49,4 +49,55 @@ class StackTest {
         val stack = Stack()
         stack.pop()
     }
+
+    @Test
+    fun `should be able to undo last stack operation after push`() {
+        val stack = Stack()
+        stack.push(BigDecimal("10"))
+        stack.push(BigDecimal("20"))
+        stack.push(BigDecimal("30"))
+
+        stack.undoLastOperation()
+        stack.undoLastOperation()
+
+        assertEquals("10", stack.toString())
+    }
+
+    @Test(expected = IllegalStateException::class)
+    fun `should throw exception if trying to undo last operation when nothing to undo`() {
+        val stack = Stack()
+
+        stack.undoLastOperation()
+    }
+
+    @Test
+    fun `should be able to undo last stack operation after pop`() {
+        val stack = Stack()
+        stack.push(BigDecimal("10"))
+        stack.push(BigDecimal("20"))
+        stack.push(BigDecimal("30"))
+
+        stack.pop()
+        stack.pop()
+
+        stack.undoLastOperation()
+        stack.undoLastOperation()
+
+        assertEquals("10 20 30", stack.toString())
+    }
+
+    @Test(expected = IllegalStateException::class)
+    fun `should throw exception if trying to undo more operations than have been done`() {
+        val stack = Stack()
+        stack.push(BigDecimal("10"))
+        stack.push(BigDecimal("20"))
+        stack.pop()
+        stack.pop()
+
+        stack.undoLastOperation()
+        stack.undoLastOperation()
+        stack.undoLastOperation()
+        stack.undoLastOperation()
+        stack.undoLastOperation()
+    }
 }
