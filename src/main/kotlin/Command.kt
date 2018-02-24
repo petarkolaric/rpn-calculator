@@ -67,3 +67,10 @@ class ClearCommand: Command {
         stack.clear()
     }
 }
+
+class PushNewNumberCommand(private val newNumber: String): Command {
+    override fun execute(stack: Stack) {
+        stack.saveState()
+        stack.push(BigDecimal(newNumber))
+    }
+}

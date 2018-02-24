@@ -178,4 +178,23 @@ class CommandTest {
 
         assertEquals("10 20", stack.toString())
     }
+
+    @Test
+    fun `should be able to push new number to stack`() {
+        val stack = Stack()
+
+        PushNewNumberCommand("10.56").execute(stack)
+
+        assertEquals("10.56", stack.toString())
+    }
+
+    @Test
+    fun `should be able to undo pushing new numberk`() {
+        val stack = Stack()
+
+        PushNewNumberCommand("10.56").execute(stack)
+        UndoCommand().execute(stack)
+
+        assertEquals("", stack.toString())
+    }
 }
