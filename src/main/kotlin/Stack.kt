@@ -16,7 +16,7 @@ class Stack {
         return stackContents.removeAt(stackContents.lastIndex)
     }
 
-    fun undoLastOperation() {
+    fun revertState() {
         if (previousStackContents.isEmpty()) {
             throw IllegalStateException("No operations to undo")
         }

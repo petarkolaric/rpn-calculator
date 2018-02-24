@@ -57,8 +57,8 @@ class StackTest {
         stack.push(BigDecimal("20"))
         stack.push(BigDecimal("30"))
 
-        stack.undoLastOperation()
-        stack.undoLastOperation()
+        stack.revertState()
+        stack.revertState()
 
         assertEquals("10", stack.toString())
     }
@@ -67,7 +67,7 @@ class StackTest {
     fun `should throw exception if trying to undo last operation when nothing to undo`() {
         val stack = Stack()
 
-        stack.undoLastOperation()
+        stack.revertState()
     }
 
     @Test
@@ -80,8 +80,8 @@ class StackTest {
         stack.pop()
         stack.pop()
 
-        stack.undoLastOperation()
-        stack.undoLastOperation()
+        stack.revertState()
+        stack.revertState()
 
         assertEquals("10 20 30", stack.toString())
     }
@@ -96,7 +96,7 @@ class StackTest {
         stack.push(BigDecimal("60"))
         stack.push(BigDecimal("70"))
 
-        stack.undoLastOperation()
+        stack.revertState()
 
         assertEquals("10 20", stack.toString())
     }
@@ -111,8 +111,8 @@ class StackTest {
         stack.push(BigDecimal("60"))
         stack.push(BigDecimal("70"))
 
-        stack.undoLastOperation()
-        stack.undoLastOperation()
+        stack.revertState()
+        stack.revertState()
 
         assertEquals("10 20", stack.toString())
     }

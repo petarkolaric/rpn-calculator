@@ -6,6 +6,7 @@ interface Command {
 
 class AddCommand: Command {
     override fun execute(stack: Stack) {
+        stack.saveState()
         val firstNumber = stack.pop()
         val secondNumber = stack.pop()
 
@@ -15,6 +16,7 @@ class AddCommand: Command {
 
 class SubtractCommand: Command {
     override fun execute(stack: Stack) {
+        stack.saveState()
         val firstNumber = stack.pop()
         val secondNumber = stack.pop()
 
@@ -24,6 +26,7 @@ class SubtractCommand: Command {
 
 class MultiplyCommand: Command {
     override fun execute(stack: Stack) {
+        stack.saveState()
         val firstNumber = stack.pop()
         val secondNumber = stack.pop()
 
@@ -33,6 +36,7 @@ class MultiplyCommand: Command {
 
 class DivideCommand: Command {
     override fun execute(stack: Stack) {
+        stack.saveState()
         val firstNumber = stack.pop()
         val secondNumber = stack.pop()
 
@@ -42,6 +46,7 @@ class DivideCommand: Command {
 
 class SquareRootCommand: Command {
     override fun execute(stack: Stack) {
+        stack.saveState()
         val firstNumber = stack.pop()
 
         val sqrRoot = Math.sqrt(firstNumber.toDouble())
@@ -52,6 +57,7 @@ class SquareRootCommand: Command {
 
 class UndoCommand: Command {
     override fun execute(stack: Stack) {
+        stack.revertState()
     }
 }
 

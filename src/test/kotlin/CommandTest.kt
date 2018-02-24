@@ -78,13 +78,81 @@ class CommandTest {
 //        assertEquals("12", stack.toString())
 //    }
 
-//    @Test
-//    fun `undo command should undo the last action`() {
-//        val stack = Stack()
-//        stack.push(BigDecimal("100"))
-//
-//        UndoCommand().execute(stack)
-//
-//        assertEquals("", stack.toString())
-//    }
+    @Test
+    fun `undo command should undo square root`() {
+        val stack = Stack()
+        stack.push(BigDecimal("50"))
+        stack.push(BigDecimal("100"))
+
+        SquareRootCommand().execute(stack)
+        UndoCommand().execute(stack)
+
+        assertEquals("50 100", stack.toString())
+    }
+
+    @Test
+    fun `undo command should undo add`() {
+        val stack = Stack()
+        stack.push(BigDecimal("50"))
+        stack.push(BigDecimal("100"))
+
+        AddCommand().execute(stack)
+        UndoCommand().execute(stack)
+
+        assertEquals("50 100", stack.toString())
+    }
+
+    @Test
+    fun `undo command should undo subtract`() {
+        val stack = Stack()
+        stack.push(BigDecimal("50"))
+        stack.push(BigDecimal("100"))
+
+        SubtractCommand().execute(stack)
+        UndoCommand().execute(stack)
+
+        assertEquals("50 100", stack.toString())
+    }
+
+    @Test
+    fun `undo command should undo multiply`() {
+        val stack = Stack()
+        stack.push(BigDecimal("50"))
+        stack.push(BigDecimal("100"))
+
+        MultiplyCommand().execute(stack)
+        UndoCommand().execute(stack)
+
+        assertEquals("50 100", stack.toString())
+    }
+
+    @Test
+    fun `undo command should undo divide`() {
+        val stack = Stack()
+        stack.push(BigDecimal("50"))
+        stack.push(BigDecimal("100"))
+
+        DivideCommand().execute(stack)
+        UndoCommand().execute(stack)
+
+        assertEquals("50 100", stack.toString())
+    }
+
+    @Test
+    fun `should be able to undo multiple times`() {
+        val stack = Stack()
+        stack.push(BigDecimal("50"))
+        stack.push(BigDecimal("100"))
+        stack.push(BigDecimal("200"))
+        stack.push(BigDecimal("300"))
+
+        AddCommand().execute(stack)
+        AddCommand().execute(stack)
+        AddCommand().execute(stack)
+        UndoCommand().execute(stack)
+        UndoCommand().execute(stack)
+        UndoCommand().execute(stack)
+
+        assertEquals("50 100 200 300", stack.toString())
+    }
 }
