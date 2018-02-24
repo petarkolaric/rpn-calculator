@@ -98,4 +98,9 @@ class StackTest {
 
         assertEquals("", stack.toString())
     }
+
+//    @Test
+//    fun `to string should not return trailing zeros after decimal place`() {
+//
+//    }
 }

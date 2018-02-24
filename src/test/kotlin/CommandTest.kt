@@ -197,4 +197,36 @@ class CommandTest {
 
         assertEquals("", stack.toString())
     }
+
+    @Test
+    fun `should only divide to 15 decimal places of precision`() {
+        val stack = Stack()
+
+        stack.push(BigDecimal("10"))
+        stack.push(BigDecimal("13"))
+
+        DivideCommand().execute(stack)
+
+        assertEquals("0.769230769230770", stack.toString())
+    }
+
+    @Test
+    fun `should only square root to 15 decimal places of precision`() {
+        val stack = Stack()
+
+        stack.push(BigDecimal("1323832813"))
+
+        SquareRootCommand().execute(stack)
+
+        assertEquals("36384.513367640356591", stack.toString())
+    }
+
+    @Test
+    fun `should only save new numbers to 15 places of precision`() {
+        val stack = Stack()
+
+        PushNewNumberCommand(BigDecimal("12345.12345678901234567890")).execute(stack)
+
+        assertEquals("12345.123456789012346", stack.toString())
+    }
 }

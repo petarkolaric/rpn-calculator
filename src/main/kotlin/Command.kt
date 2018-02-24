@@ -1,4 +1,5 @@
 import java.math.BigDecimal
+import java.math.RoundingMode
 
 interface Command {
     fun execute(stack: Stack)
@@ -40,7 +41,9 @@ class DivideCommand: Command {
         val firstNumber = stack.pop()
         val secondNumber = stack.pop()
 
-        stack.push(secondNumber.divide(firstNumber))
+        val divisionResult = secondNumber.divide(firstNumber, 15, RoundingMode.UP)
+
+        stack.push(divisionResult)
     }
 }
 
@@ -51,7 +54,7 @@ class SquareRootCommand: Command {
 
         val sqrRoot = Math.sqrt(firstNumber.toDouble())
 
-        stack.push(BigDecimal(sqrRoot))
+        stack.push(BigDecimal(sqrRoot).setScale(15, RoundingMode.HALF_UP))
     }
 }
 
@@ -71,6 +74,6 @@ class ClearCommand: Command {
 class PushNewNumberCommand(private val newNumber: BigDecimal): Command {
     override fun execute(stack: Stack) {
         stack.saveState()
-        stack.push(newNumber)
+        stack.push(newNumber.setScale(15, RoundingMode.HALF_UP))
     }
 }
