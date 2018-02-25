@@ -4,7 +4,7 @@ import java.math.RoundingMode
 interface Command {
     fun execute(stack: Stack)
     fun throwExceptionIfNotEnoughNumbers(stack: Stack, requiredNumbers: Int) {
-        if (stack.size() < requiredNumbers) throw IllegalStateException("Not enough numbers in stack")
+        if (stack.size() < requiredNumbers) throw IllegalArgumentException("Not enough numbers in stack")
     }
 }
 
@@ -60,6 +60,10 @@ class SquareRootCommand: Command {
         stack.saveState()
         val firstNumber = stack.pop()
 
+        if (firstNumber < BigDecimal.ZERO) {
+            stack.revertState()
+            throw IllegalArgumentException("Cannot sqrt negative numbers")
+        }
         val sqrRoot = Math.sqrt(firstNumber.toDouble())
 
         stack.push(BigDecimal(sqrRoot).setScale(15, RoundingMode.HALF_UP))

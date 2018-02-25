@@ -1,4 +1,5 @@
 import org.junit.Assert.assertEquals
+import org.junit.Assert.fail
 import org.junit.Rule
 import org.junit.Test
 import java.math.BigDecimal
@@ -26,7 +27,7 @@ class CommandTest {
     fun `should throw exception if not enough numbers to add in stack`() {
         val stack = Stack()
         stack.push(BigDecimal("10"))
-        thrown.expect(IllegalStateException::class.java)
+        thrown.expect(IllegalArgumentException::class.java)
         thrown.expectMessage("Not enough numbers in stack")
 
         AddCommand().execute(stack)
@@ -36,7 +37,7 @@ class CommandTest {
     fun `should throw exception if not enough numbers to subtract in stack`() {
         val stack = Stack()
         stack.push(BigDecimal("10"))
-        thrown.expect(IllegalStateException::class.java)
+        thrown.expect(IllegalArgumentException::class.java)
         thrown.expectMessage("Not enough numbers in stack")
 
         SubtractCommand().execute(stack)
@@ -46,7 +47,7 @@ class CommandTest {
     fun `should throw exception if not enough numbers to multiply in stack`() {
         val stack = Stack()
         stack.push(BigDecimal("10"))
-        thrown.expect(IllegalStateException::class.java)
+        thrown.expect(IllegalArgumentException::class.java)
         thrown.expectMessage("Not enough numbers in stack")
 
         MultiplyCommand().execute(stack)
@@ -56,7 +57,7 @@ class CommandTest {
     fun `should throw exception if not enough numbers to divide in stack`() {
         val stack = Stack()
         stack.push(BigDecimal("10"))
-        thrown.expect(IllegalStateException::class.java)
+        thrown.expect(IllegalArgumentException::class.java)
         thrown.expectMessage("Not enough numbers in stack")
 
         DivideCommand().execute(stack)
@@ -65,7 +66,7 @@ class CommandTest {
     @Test
     fun `should throw exception if not enough numbers to sqrt in stack`() {
         val stack = Stack()
-        thrown.expect(IllegalStateException::class.java)
+        thrown.expect(IllegalArgumentException::class.java)
         thrown.expectMessage("Not enough numbers in stack")
 
         SquareRootCommand().execute(stack)
@@ -114,16 +115,30 @@ class CommandTest {
         assertEquals("12", stack.toString())
     }
 
-    // TODO Make this test work
-//    @Test
-//    fun `square root command should throw an exception for negative numbers`() {
-//        val stack = Stack()
-//        stack.push(BigDecimal("-144"))
-//
-//        SquareRootCommand().execute(stack)
-//
-//        assertEquals("12", stack.toString())
-//    }
+    @Test
+    fun `square root command should throw an exception for negative numbers`() {
+        val stack = Stack()
+        stack.push(BigDecimal("-144"))
+        thrown.expect(IllegalArgumentException::class.java)
+        thrown.expectMessage("Cannot sqrt negative numbers")
+
+        SquareRootCommand().execute(stack)
+    }
+
+    @Test
+    fun `square root command should not change stack state after failing to sqrt negative`() {
+        val stack = Stack()
+        stack.push(BigDecimal("-144"))
+
+        try {
+            SquareRootCommand().execute(stack)
+            fail("Should never reach here")
+        } catch (exception: IllegalArgumentException) {
+
+        }
+
+        assertEquals("-144", stack.toString())
+    }
 
     @Test
     fun `undo command should undo square root`() {
