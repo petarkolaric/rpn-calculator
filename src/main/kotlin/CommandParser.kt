@@ -1,5 +1,3 @@
-import java.math.BigDecimal
-
 class CommandParser {
     companion object {
         fun parseCommandString(inputString: String): Command {
@@ -11,7 +9,7 @@ class CommandParser {
                 "sqrt" -> SquareRootCommand()
                 "undo" -> UndoCommand()
                 "clear" -> ClearCommand()
-                else -> PushNewNumberCommand(BigDecimal(inputString))
+                else -> PushNewNumberCommand(inputString)
             }
         }
     }

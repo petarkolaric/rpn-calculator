@@ -21,7 +21,7 @@ class RPNCalculator {
                             command.execute(stack)
                     }
                 }
-                println(stack.toString())
+                println("stack: $stack")
             }
         }
     }

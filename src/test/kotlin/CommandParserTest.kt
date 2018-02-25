@@ -57,9 +57,4 @@ class CommandParserTest {
 
         assertEquals(PushNewNumberCommand::class, result::class)
     }
-
-    @Test(expected = IllegalArgumentException::class)
-    fun `should throw an exception with bad arguments`() {
-        CommandParser.parseCommandString("batman")
-    }
 }

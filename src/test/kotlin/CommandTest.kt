@@ -245,7 +245,7 @@ class CommandTest {
     fun `should be able to push new number to stack`() {
         val stack = Stack()
 
-        PushNewNumberCommand(BigDecimal("10.56")).execute(stack)
+        PushNewNumberCommand("10.56").execute(stack)
 
         assertEquals("10.56", stack.toString())
     }
@@ -254,7 +254,7 @@ class CommandTest {
     fun `should be able to undo pushing new number`() {
         val stack = Stack()
 
-        PushNewNumberCommand(BigDecimal("10.56")).execute(stack)
+        PushNewNumberCommand("10.56").execute(stack)
         UndoCommand().execute(stack)
 
         assertEquals("", stack.toString())
@@ -291,7 +291,7 @@ class CommandTest {
     fun `should only save new numbers to 15 places of precision`() {
         val stack = Stack()
 
-        PushNewNumberCommand(BigDecimal("12345.12345678901234567890")).execute(stack)
+        PushNewNumberCommand("12345.12345678901234567890").execute(stack)
 
         val savedNumber = stack.pop()
 
@@ -302,8 +302,17 @@ class CommandTest {
     fun `should only print numbers to 10 places of precision`() {
         val stack = Stack()
 
-        PushNewNumberCommand(BigDecimal("12345.12345678911234567890")).execute(stack)
+        PushNewNumberCommand("12345.12345678911234567890").execute(stack)
 
         assertEquals("12345.1234567891", stack.toString())
+    }
+
+    @Test
+    fun `should throw exception when trying to add bad new number`() {
+        val stack = Stack()
+        thrown.expect(IllegalArgumentException::class.java)
+        thrown.expectMessage("Bad operator")
+
+        PushNewNumberCommand("batman").execute(stack)
     }
 }

@@ -83,9 +83,14 @@ class ClearCommand: Command {
     }
 }
 
-class PushNewNumberCommand(private val newNumber: BigDecimal): Command {
+class PushNewNumberCommand(private val newNumber: String): Command {
     override fun execute(stack: Stack) {
-        stack.saveState()
-        stack.push(newNumber.setScale(15, RoundingMode.HALF_UP))
+        try {
+            val newNumberAsBigDecimal = BigDecimal(newNumber).setScale(15, RoundingMode.HALF_UP)
+            stack.saveState()
+            stack.push(newNumberAsBigDecimal)
+        } catch (exception: NumberFormatException) {
+            throw IllegalArgumentException("Bad operator")
+        }
     }
 }
