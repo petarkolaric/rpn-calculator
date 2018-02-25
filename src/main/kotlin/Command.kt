@@ -4,7 +4,7 @@ import java.math.RoundingMode
 interface Command {
     fun execute(stack: Stack)
     fun throwExceptionIfNotEnoughNumbers(stack: Stack, requiredNumbers: Int) {
-        if (stack.size() < requiredNumbers) throw IllegalArgumentException("Not enough numbers in stack")
+        if (stack.size() < requiredNumbers) throw InsufficientStackSizeException("Not enough numbers in stack")
     }
 }
 
