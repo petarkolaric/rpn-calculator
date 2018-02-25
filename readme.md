@@ -4,12 +4,18 @@ This code is for an RPN (Reverse Polish Notation) calculator.
 
 #### Requirements
 
-To run this application you will need to have Java 8 (or later) installed with correct environment variables set up.
+To run this application you will need to have Java 8 (or later) installed with correct environment variables set up. The application has been developed and tested with Java 1.8.0_102 on MacOS 10.12.6.
 
 #### To Run
 
 ```
-./gradlew run
+$ ./gradlew run
+```
+
+If the gradle logs are getting in your way, you can instead build an executable and run that:
+```
+$ ./gradlew installDist
+$ build/install/rpn-calculator/bin/rpn-calculator
 ```
 
 #### To Test
