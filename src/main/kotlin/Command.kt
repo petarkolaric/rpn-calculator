@@ -3,10 +3,14 @@ import java.math.RoundingMode
 
 interface Command {
     fun execute(stack: Stack)
+    fun throwExceptionIfNotEnoughNumbers(stack: Stack, requiredNumbers: Int) {
+        if (stack.size() < requiredNumbers) throw IllegalStateException("Not enough numbers in stack")
+    }
 }
 
 class AddCommand: Command {
     override fun execute(stack: Stack) {
+        throwExceptionIfNotEnoughNumbers(stack, 2)
         stack.saveState()
         val firstNumber = stack.pop()
         val secondNumber = stack.pop()
@@ -17,6 +21,7 @@ class AddCommand: Command {
 
 class SubtractCommand: Command {
     override fun execute(stack: Stack) {
+        throwExceptionIfNotEnoughNumbers(stack, 2)
         stack.saveState()
         val firstNumber = stack.pop()
         val secondNumber = stack.pop()
@@ -27,6 +32,7 @@ class SubtractCommand: Command {
 
 class MultiplyCommand: Command {
     override fun execute(stack: Stack) {
+        throwExceptionIfNotEnoughNumbers(stack, 2)
         stack.saveState()
         val firstNumber = stack.pop()
         val secondNumber = stack.pop()
@@ -37,6 +43,7 @@ class MultiplyCommand: Command {
 
 class DivideCommand: Command {
     override fun execute(stack: Stack) {
+        throwExceptionIfNotEnoughNumbers(stack, 2)
         stack.saveState()
         val firstNumber = stack.pop()
         val secondNumber = stack.pop()
@@ -49,6 +56,7 @@ class DivideCommand: Command {
 
 class SquareRootCommand: Command {
     override fun execute(stack: Stack) {
+        throwExceptionIfNotEnoughNumbers(stack, 1)
         stack.saveState()
         val firstNumber = stack.pop()
 

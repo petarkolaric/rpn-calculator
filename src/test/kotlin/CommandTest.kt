@@ -1,8 +1,15 @@
 import org.junit.Assert.assertEquals
+import org.junit.Rule
 import org.junit.Test
 import java.math.BigDecimal
+import org.junit.rules.ExpectedException
+
+
 
 class CommandTest {
+
+    @Rule @JvmField
+    var thrown: ExpectedException = ExpectedException.none()
 
     @Test
     fun `add command should add two numbers`() {
@@ -15,14 +22,54 @@ class CommandTest {
         assertEquals("15", stack.toString())
     }
 
-    //TODO Think about how to implement this nicely/other exception tests
-//    @Test
-//    fun `should throw exception if not enough numbers to add in stack`() {
-//        val stack = Stack()
-//        stack.push(BigDecimal("10"))
-//
-//        AddCommand().execute(stack)
-//    }
+    @Test
+    fun `should throw exception if not enough numbers to add in stack`() {
+        val stack = Stack()
+        stack.push(BigDecimal("10"))
+        thrown.expect(IllegalStateException::class.java)
+        thrown.expectMessage("Not enough numbers in stack")
+
+        AddCommand().execute(stack)
+    }
+
+    @Test
+    fun `should throw exception if not enough numbers to subtract in stack`() {
+        val stack = Stack()
+        stack.push(BigDecimal("10"))
+        thrown.expect(IllegalStateException::class.java)
+        thrown.expectMessage("Not enough numbers in stack")
+
+        SubtractCommand().execute(stack)
+    }
+
+    @Test
+    fun `should throw exception if not enough numbers to multiply in stack`() {
+        val stack = Stack()
+        stack.push(BigDecimal("10"))
+        thrown.expect(IllegalStateException::class.java)
+        thrown.expectMessage("Not enough numbers in stack")
+
+        MultiplyCommand().execute(stack)
+    }
+
+    @Test
+    fun `should throw exception if not enough numbers to divide in stack`() {
+        val stack = Stack()
+        stack.push(BigDecimal("10"))
+        thrown.expect(IllegalStateException::class.java)
+        thrown.expectMessage("Not enough numbers in stack")
+
+        DivideCommand().execute(stack)
+    }
+
+    @Test
+    fun `should throw exception if not enough numbers to sqrt in stack`() {
+        val stack = Stack()
+        thrown.expect(IllegalStateException::class.java)
+        thrown.expectMessage("Not enough numbers in stack")
+
+        SquareRootCommand().execute(stack)
+    }
 
     @Test
     fun `subtract command should subtract two numbers`() {

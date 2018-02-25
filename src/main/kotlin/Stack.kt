@@ -32,6 +32,10 @@ class Stack {
         previousStackContents.add(stackContents.toMutableList())
     }
 
+    fun size(): Int {
+        return stackContents.size
+    }
+
     override fun toString(): String {
         var outputString = ""
         val decimalFormat = DecimalFormat()

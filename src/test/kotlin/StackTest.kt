@@ -106,4 +106,15 @@ class StackTest {
 
         assertEquals("10", stack.toString())
     }
+
+    @Test
+    fun `should be able to get size of stack`() {
+        val stack = Stack()
+        stack.push(BigDecimal("10"))
+        stack.push(BigDecimal("10"))
+        stack.push(BigDecimal("10"))
+        stack.push(BigDecimal("10"))
+
+        assertEquals(4, stack.size())
+    }
 }
