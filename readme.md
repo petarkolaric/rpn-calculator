@@ -4,7 +4,7 @@ This code is for an RPN (Reverse Polish Notation) calculator.
 
 #### Requirements
 
-TODO - fill me in
+To run this application you will need to have Java 8 (or later) installed with correct environment variables set up.
 
 #### To Run
 
@@ -19,11 +19,9 @@ TODO - fill me in
 
 #### Design Decisions
 
+Due to the command oriented nature of the problem, a command pattern approach was taken. As this was a coding challenge, the use of external frameworks (such as any DI frameworks) was avoided.
+
 #### Assumptions Made
 
-It is assumed that if there are not enough items in the stack for a command, we will leave the stack as-is and print a message to the user.
-It is assumed that any valid character seperated by a space represents a distinct command. This includes individual numbers.
+It is assumed that any valid character separated by a space represents a distinct command. This includes individual numbers.
 It is assumed that the user should be able to undo all operations.
-
-NOTES
-- line can contain an operator, or not contain one
